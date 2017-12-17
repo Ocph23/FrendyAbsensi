@@ -1,0 +1,6 @@
+{
+  "name": "myproject",
+  "dependencies": {
+    "signalr": "2.2.2"
+  }
+}
