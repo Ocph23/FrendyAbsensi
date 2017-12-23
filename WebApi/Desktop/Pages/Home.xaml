@@ -5,13 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="500">
     <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBlock Text="BASIC PAGE" Style="{StaticResource Heading2}" />
-                <TextBlock Text="Content goes here" />
-            </StackPanel>
-        </ScrollViewer>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="85*"/>
+        </Grid.RowDefinitions>
+        <StackPanel MinWidth="200" Grid.Row="0">
+            <TextBlock Text="ABSENSI HARI INI" Style="{StaticResource Heading2}" />
+            <TextBlock Text="{Binding Today}" />
+        </StackPanel>
+        <Grid Grid.Row="1" >
+            <DataGrid ItemsSource="{Binding SourceView}" AutoGenerateColumns="False" RowHeight="35" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Nama" Binding="{Binding Nama}"/>
+                    <DataGridTextColumn Width="*" Header="NIP" Binding="{Binding NIP}"/>
+                    <DataGridTextColumn Width="*" Header="Kehadiran" Binding="{Binding AbsenToday.Status}"/>
+                    <DataGridTextColumn Width="*" Header="Masuk" Binding="{Binding AbsenToday.JamMasuk}"/>
+                    <DataGridTextColumn Width="*" Header="Pulang" Binding="{Binding AbsenToday.JamPulang}"/>
+                    <DataGridTextColumn IsReadOnly="True" Width="*" Header="Lama Kerja" Binding="{Binding AbsenToday.LamaKerja}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
     </Grid>
 </UserControl>

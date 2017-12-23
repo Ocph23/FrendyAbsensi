@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR.Client;
+using Library;
 
 namespace Desktop
 {
@@ -14,6 +16,8 @@ namespace Desktop
         public Repository<bidang> BidangCollection { get; }
         public Repository<jabatan> JabatanCollection { get; }
         public Repository<absen> AbsenCollection { get; }
+        public Repository<pegawai> AbsenTodayCollection { get; }
+        public HubClient HubClient { get; }
 
         public MainWindowViewModel()
         {
@@ -21,6 +25,9 @@ namespace Desktop
             this.BidangCollection = new Repository<bidang>("/api/bidang");
             this.JabatanCollection = new Repository<jabatan>("/api/jabatan");
             this.AbsenCollection = new Repository<absen>("/api/absen");
+            this.AbsenTodayCollection = new Repository<pegawai>("/api/absentoday");
+
+            this.HubClient = new Library.HubClient();
 
         }
     }

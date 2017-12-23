@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Desktop
 {
@@ -25,5 +26,28 @@ namespace Desktop
             }
             return list;
         }
+
+        internal static void ShowMessage(string message)
+        {
+            var form = App.Current.Windows[0] as MainWindow;
+            form.ShowMessage(message);
+        }
+        internal static void ShowMessageError(string message)
+        {
+            var form = App.Current.Windows[0] as MainWindow;
+            form.ShowMessageError(message);
+        }
+
+        internal static bool MessageAsk(string message)
+        {
+            var form = App.Current.Windows[0] as MainWindow;
+            if (form.MessageAsk(message) == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        
     }
 }

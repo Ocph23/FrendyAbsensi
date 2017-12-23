@@ -49,9 +49,11 @@ using DAL;
                       _idbidang=value; 
                      OnPropertyChange("IdBidang");
                      }
-          } 
+          }
 
-          private int  _id;
+        public string NamaBidang { get; set; }
+
+        private int  _id;
            private string  _nama;
            private string  _keterangan;
            private int  _idbidang;

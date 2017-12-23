@@ -17,4 +17,9 @@ namespace Library
     {
         None, Hadir, Izin, Sakit, Alpa
     }
+
+    public enum Gender
+    {
+        Pria,Wanita
+    }
 }

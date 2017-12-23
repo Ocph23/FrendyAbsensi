@@ -16,15 +16,19 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Data Jabatan" Style="{StaticResource Heading2}" Grid.RowSpan="2" />
                     <DataGrid ItemsSource="{Binding SourceView}" Grid.Row="1" 
-                               SelectedItem="{Binding SelcetedItem}"  RowHeight="35"
+                               SelectedItem="{Binding SelectedItem}"  RowHeight="35"
                               CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nama" Binding="{Binding Nama}"/>
+                            <DataGridTextColumn Header="Bidang" Binding="{Binding NamaBidang}"/>
+                            <DataGridTextColumn Header="Keterangan" Binding="{Binding Keterangan}"/>
+                        </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Tambah Pegawai" Command="{Binding AddCommand}"/>
-                                <MenuItem Header="Edit Pegawai" Command="{Binding EditCommand}"/>
-                                <MenuItem Header="Hapus Pegawai" Command="{Binding DeleteCommand}"/>
+                                <MenuItem Header="Tambah Jabatan" Command="{Binding AddCommand}"/>
+                                <MenuItem Header="Edit Jabatan" Command="{Binding EditCommand}"/>
+                                <MenuItem Header="Hapus Jabatan" Command="{Binding DeleteCommand}"/>
                                 <Separator></Separator>
-                                <MenuItem Header="Absen" Command="{Binding ViewAbsenCommand}"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
 

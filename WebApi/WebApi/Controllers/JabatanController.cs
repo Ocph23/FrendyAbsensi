@@ -16,7 +16,8 @@ namespace WebApi.Controllers
             using (var db = new OcphDbContext())
             {
                 var result = from a in db.Jabatan.Select()
-                             select a;
+                             join b in db.Bidang.Select() on a.IdBidang equals b.Id
+                             select new jabatan { Id = a.Id, Keterangan = a.Keterangan, IdBidang = a.IdBidang, Nama = a.Nama, NamaBidang = b.Nama };
                 return result.ToList();
             }
         }

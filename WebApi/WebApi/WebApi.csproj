@@ -119,9 +119,6 @@
     <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.AspNet.Identity, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.AspNet.Identity.2.1.1\lib\net45\MySql.AspNet.Identity.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data, Version=6.9.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.10\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
@@ -214,10 +211,12 @@
   <ItemGroup>
     <Compile Include="AbsenHub.cs" />
     <Compile Include="Controllers\AbsenController.cs" />
+    <Compile Include="Controllers\AbsenTodayController.cs" />
     <Compile Include="Controllers\BidangController.cs" />
     <Compile Include="Controllers\JabatanController.cs" />
     <Compile Include="Controllers\PegawaiController.cs" />
     <Compile Include="Controllers\PerizinanController.cs" />
+    <Compile Include="Models\AccountController.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -325,6 +324,10 @@
     <Content Include="Scripts\jquery-3.2.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Project Tools\MySqlIdentity-master21\MySqlIdentity-master\MySql.AspNet.Identity\MySql.AspNet.Identity.csproj">
+      <Project>{ec3add94-5e1d-4a5f-be06-788ac6c0e252}</Project>
+      <Name>MySql.AspNet.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{16a2d0c8-781a-4988-a685-d8b0854cbdc6}</Project>
       <Name>Library</Name>

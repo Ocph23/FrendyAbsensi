@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+           
              mc:Ignorable="d" 
+             
              d:DesignHeight="300" d:DesignWidth="300">
+    
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <Grid MinWidth="200">
@@ -20,7 +23,7 @@
                         <ColumnDefinition Width="40*"/>
                     </Grid.ColumnDefinitions>
                     <DataGrid ItemsSource="{Binding SourceView}" Grid.Column="0"
-                              SelectedItem="{Binding SelcetedItem}"  RowHeight="35"
+                              SelectedItem="{Binding SelectedItem}"  RowHeight="35"
                               CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
                               >
                         <DataGrid.Columns>
@@ -41,7 +44,7 @@
                         </DataGrid.ContextMenu>
 
                     </DataGrid>
-                    <Expander Header="Detail Pegawai" IsExpanded="True" Grid.Column="1">
+                    <Expander Margin="20,10,10,10" Header="Detail Pegawai" IsExpanded="True" Grid.Column="1">
                         <Grid  Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40*"/>

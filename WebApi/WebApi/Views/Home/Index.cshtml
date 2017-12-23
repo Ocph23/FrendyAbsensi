@@ -32,7 +32,7 @@
                 $('#sendmessage').click(function () {
                     // Call the Send method on the hub.
                     var nama = $('#displayname').val();
-                    var absen = '{"Id":1,"JamMasuk":"2017- 11 - 11T00: 00:00","JamPulang":"2017- 11 - 12T00: 00:00","Status":1,"PegawaiId":1,"PerizinanId":0,"PengaturanId":1}';
+                    var absen = '{"Id":1,"JamMasuk":"08:15","JamPulang":"17:00","Status":"Hadir","PegawaiId":1,"PerizinanId":0,"PengaturanId":1}';
                     chat.server.sendNewAbsen(JSON.parse(absen));
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();

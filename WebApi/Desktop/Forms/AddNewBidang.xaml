@@ -27,8 +27,8 @@
                         <TextBlock Margin="10" Height="40"  Text="Keterangan"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="10">
-                        <TextBox Text="{Binding Nama}"/>
-                        <TextBox Text="{Binding Keterangan}" AcceptsReturn="True" Height="98"/>
+                        <TextBox Text="{Binding Nama,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                        <TextBox Text="{Binding Keterangan,UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" AcceptsReturn="True" Height="98"/>
                     </StackPanel>
                 </Grid>
                 <StackPanel HorizontalAlignment="Right" Margin="10" Orientation="Horizontal" Grid.Row="2">

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +13,11 @@ namespace Desktop.ViewModels
    public class BidangViewModel:DAL.BaseNotifyProperty
     {
         private bidang _bidang;
-
-        public ObservableCollection<bidang> Source { get; set; }
         public CollectionView SourceView { get; set; }
         public CommandHandler AddCommand { get; }
         public CommandHandler EditCommand { get; }
+        public CommandHandler DeleteCommand { get; }
+
         public bidang SelectedItem {
             get
             {
@@ -29,13 +30,14 @@ namespace Desktop.ViewModels
             }
         }
 
+
         public BidangViewModel()
         {
-            Source = new ObservableCollection<bidang>(ResourcesBase.GetMainWindowViewModel().BidangCollection);
-            SourceView = (CollectionView)CollectionViewSource.GetDefaultView(Source);
+            SourceView = (CollectionView)CollectionViewSource.GetDefaultView(ResourcesBase.GetMainWindowViewModel().BidangCollection);
 
             AddCommand = new CommandHandler { CanExecuteAction = x => true, ExecuteAction = AddCommandAction };
             EditCommand = new CommandHandler { CanExecuteAction = x => SelectedItem != null, ExecuteAction = EditCommandAction };
+            DeleteCommand = new CommandHandler { CanExecuteAction = x => SelectedItem != null, ExecuteAction = DeleteCommandAction };
         }
 
         private void EditCommandAction(object obj)
@@ -53,6 +55,11 @@ namespace Desktop.ViewModels
             var vm = new ViewModels.AddNewBidangViewModel() { WindowClose = form.Close };
             form.DataContext = vm;
             form.ShowDialog();
+            SourceView.Refresh();
+        }
+        private void DeleteCommandAction(object obj)
+        {
+            ResourcesBase.GetMainWindowViewModel().BidangCollection.Remove(SelectedItem);
             SourceView.Refresh();
         }
     }

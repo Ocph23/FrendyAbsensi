@@ -24,10 +24,36 @@ namespace Desktop
     {
         public MainWindow()
         {
-            InitializeComponent();
-            this.DataContext = new MainWindowViewModel();
+            var form = new Forms.LoginView();
+           var  vm = new ViewModels.LoginViewModel() { WindowClose = form.Close };
+            form.DataContext = vm;
+            form.ShowDialog();
+            if(!vm.IsLogin)
+            {
+                this.Close();
+            }else
+            {
+                InitializeComponent();
+                this.DataContext = new MainWindowViewModel();
+            }
+
+            
         }
 
-     
+        internal void ShowMessage(string message)
+        {
+            ModernDialog.ShowMessage(message, "Info", MessageBoxButton.OK,this);
+        }
+
+        internal void ShowMessageError(string message)
+        {
+            ModernDialog.ShowMessage(message, "Error", MessageBoxButton.OK,this);
+        }
+
+        internal MessageBoxResult MessageAsk(string message)
+        {
+            return ModernDialog.ShowMessage(message, "Ask", MessageBoxButton.YesNo);
+        }
+
     }
 }

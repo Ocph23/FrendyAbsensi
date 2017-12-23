@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Library.DataModels;
 
 namespace Desktop.Forms
 {
@@ -21,9 +22,12 @@ namespace Desktop.Forms
     /// </summary>
     public partial class AddNewPegawai : ModernWindow
     {
+       
+
         public AddNewPegawai()
         {
             InitializeComponent();
         }
+
     }
 }

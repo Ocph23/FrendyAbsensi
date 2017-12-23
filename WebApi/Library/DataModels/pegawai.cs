@@ -42,7 +42,7 @@ using DAL;
           } 
 
           [DbColumn("JenisKelamin")] 
-          public string JenisKelamin 
+          public Gender JenisKelamin 
           { 
                get{return _jeniskelamin;} 
                set{ 
@@ -111,7 +111,26 @@ using DAL;
                      }
           } 
 
-          [DbColumn("UserId")] 
+           
+        private string email;
+        [DbColumn("Email")]
+        public string Email
+        {
+            get { return email; }
+            set { email = value; OnPropertyChange("Email"); }
+        }
+
+        private string golongan;
+        [DbColumn("Golongan")]
+        public string Golongan
+        {
+            get { return golongan; }
+            set { golongan = value; OnPropertyChange("Golongan"); }
+        }
+
+
+
+        [DbColumn("UserId")] 
           public string UserId 
           { 
                get{return _userid;} 
@@ -119,12 +138,16 @@ using DAL;
                       _userid=value; 
                      OnPropertyChange("UserId");
                      }
-          } 
+          }
 
-          private int  _id;
+        public jabatan Jabatan { get; set; }
+        public bidang Bidang { get; set; }
+        public absen AbsenToday { get; set; }
+
+        private int  _id;
            private string  _nama;
            private string  _nip;
-           private string  _jeniskelamin;
+           private Gender  _jeniskelamin;
            private string  _tempatlahir;
            private DateTime  _tanggallahir;
            private string  _alamat;

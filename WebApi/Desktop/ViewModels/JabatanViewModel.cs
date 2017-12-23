@@ -17,6 +17,8 @@ namespace Desktop.ViewModels
         public CollectionView SourceView { get; set; }
         public CommandHandler AddCommand { get; }
         public CommandHandler EditCommand { get; }
+        public CommandHandler DeleteCommand { get; }
+
         public jabatan SelectedItem
         {
             get
@@ -32,11 +34,17 @@ namespace Desktop.ViewModels
 
         public JabatanViewModel()
         {
-            Source = new ObservableCollection<jabatan>(ResourcesBase.GetMainWindowViewModel().JabatanCollection);
-            SourceView = (CollectionView)CollectionViewSource.GetDefaultView(Source);
+            SourceView = (CollectionView)CollectionViewSource.GetDefaultView(ResourcesBase.GetMainWindowViewModel().JabatanCollection);
 
             AddCommand = new CommandHandler { CanExecuteAction = x => true, ExecuteAction = AddCommandAction };
             EditCommand = new CommandHandler { CanExecuteAction = x => SelectedItem != null, ExecuteAction = EditCommandAction };
+            DeleteCommand = new CommandHandler { CanExecuteAction = x => SelectedItem != null, ExecuteAction = DeleteCommandAction };
+        }
+
+        private void DeleteCommandAction(object obj)
+        {
+            ResourcesBase.GetMainWindowViewModel().JabatanCollection.Remove(SelectedItem);
+            SourceView.Refresh();
         }
 
         private void EditCommandAction(object obj)
@@ -50,7 +58,7 @@ namespace Desktop.ViewModels
 
         private void AddCommandAction(object obj)
         {
-            var form = new Forms.AddNewBidang();
+            var form = new Forms.AddNewJabatan();
             var vm = new ViewModels.AddNewJabatanViewModel() { WindowClose = form.Close };
             form.DataContext = vm;
             form.ShowDialog();

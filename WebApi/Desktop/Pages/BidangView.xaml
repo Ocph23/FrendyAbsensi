@@ -17,14 +17,18 @@
                     <TextBlock Text="Data Bidang" Style="{StaticResource Heading2}" Grid.RowSpan="2" />
                     <DataGrid ItemsSource="{Binding SourceView}" Grid.Row="1"
                               RowHeight="35"
-                               SelectedItem="{Binding SelcetedItem}"
+                               SelectedItem="{Binding SelectedItem}"
                               CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
                               >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nama" Binding="{Binding Nama}"/>
+                            <DataGridTextColumn Header="Keterangan" Binding="{Binding Keterangan}"/>
+                        </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Tambah Pegawai" Command="{Binding AddCommand}"/>
-                                <MenuItem Header="Edit Pegawai" Command="{Binding EditCommand}"/>
-                                <MenuItem Header="Hapus Pegawai" Command="{Binding DeleteCommand}"/>
+                                <MenuItem Header="Tambah Bidang" Command="{Binding AddCommand}"/>
+                                <MenuItem Header="Edit Bidang" Command="{Binding EditCommand}"/>
+                                <MenuItem Header="Hapus Bidang" Command="{Binding DeleteCommand}"/>
                                 <Separator></Separator>
                                 <MenuItem Header="Absen" Command="{Binding ViewAbsenCommand}"/>
                             </ContextMenu>

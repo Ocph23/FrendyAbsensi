@@ -23,23 +23,25 @@ namespace Library.DataModels
         }
 
         [DbColumn("JamMasuk")]
-        public DateTime JamMasuk
+        public TimeSpan JamMasuk
         {
             get { return _jammasuk; }
             set
             {
                 _jammasuk = value;
+                LamaKerja = JamPulang.Subtract(JamMasuk);
                 OnPropertyChange("JamMasuk");
             }
         }
 
         [DbColumn("JamPulang")]
-        public DateTime JamPulang
+        public TimeSpan JamPulang
         {
             get { return _jampulang; }
             set
             {
                 _jampulang = value;
+                LamaKerja = JamPulang.Subtract(JamMasuk);
                 OnPropertyChange("JamPulang");
             }
         }
@@ -79,7 +81,6 @@ namespace Library.DataModels
             }
         }
 
-        [PrimaryKey("PengaturanId")]
         [DbColumn("PengaturanId")]
         public int PengaturanId
         {
@@ -91,9 +92,29 @@ namespace Library.DataModels
             }
         }
 
+        private DateTime dateTime;
+        [DbColumn("Tanggal")]
+        public DateTime Tanggal
+        {
+            get { return dateTime; }
+            set { dateTime = value; OnPropertyChange("Tanggal"); }
+        }
+
+
+        private TimeSpan lamakerja;
+
+        public TimeSpan LamaKerja
+        {
+            get { return lamakerja; }
+            set { lamakerja = value; OnPropertyChange("LamaKerja"); }
+        }
+
+
+        public pegawai Pegawai { get; set; }
+
         private int _id;
-        private DateTime _jammasuk;
-        private DateTime _jampulang;
+        private TimeSpan _jammasuk;
+        private TimeSpan _jampulang;
         private StatusKehadiran _status;
         private int _pegawaiid;
         private int _perizinanid;

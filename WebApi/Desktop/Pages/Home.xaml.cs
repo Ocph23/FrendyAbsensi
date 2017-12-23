@@ -23,6 +23,7 @@ namespace Desktop.Pages
         public Home()
         {
             InitializeComponent();
+            this.DataContext = new ViewModels.HomeViewModel();
             this.Loaded += Home_Loaded;
         }
 

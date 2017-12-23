@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Library.DataModels;
 
 namespace Desktop.Collections
 {
@@ -21,7 +22,6 @@ namespace Desktop.Collections
         {
             this.uri = uri;
             Task.Factory.StartNew(async () => await GetListAsync());
-
         }
 
         private async Task GetListAsync()
@@ -43,15 +43,28 @@ namespace Desktop.Collections
             Client client = new Client();
             var obj = JsonConvert.SerializeObject(item);
             StringContent content = new StringContent(obj, Encoding.UTF8, "application/json");
-            var response = client.ClientContext.PostAsync(uri,content).Result;
-            if (response.IsSuccessStatusCode == true)
+            try
             {
-                var result = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
-                if (response != null)
+                var response = client.ClientContext.PostAsync(uri, content).Result;
+                if (response.IsSuccessStatusCode == true)
                 {
-                    list.Add(result);
+                    var result = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
+                    if (response != null)
+                    {
+                        list.Add(result);
+                    }
+                    ResourcesBase.ShowMessage("Data Berhasil Ditambah");
+                }
+                else
+                {
+                    throw new SystemException("Data Tidak Tersimpan");
                 }
             }
+            catch (Exception ex)
+            {
+                ResourcesBase.ShowMessageError(ex.Message);
+            }
+           
         }
 
        
@@ -80,17 +93,33 @@ namespace Desktop.Collections
         {
             dynamic a = item;
             var ApiUrl = uri + "?id=" + a.Id;
-            Client client = new Client();
-            var response = client.ClientContext.DeleteAsync(ApiUrl).Result;
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return true;
+                if (ResourcesBase.MessageAsk("Yakin Hapus Data ?"))
+                {
+                    Client client = new Client();
+                    var response = client.ClientContext.DeleteAsync(ApiUrl).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        list.Remove(item);
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
+            {
+                ResourcesBase.ShowMessageError(ex.Message);
                 return false;
+            }
         }
 
-        private T Updated(T item)
+        public T Updated(T item)
         {
             dynamic a = item;
             var ApiUrl = uri + "?id=" + a.Id;
