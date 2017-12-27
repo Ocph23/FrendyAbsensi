@@ -8,6 +8,8 @@ using WebApi.Models;
 using WebApi.Providers;
 using Owin;
 using WebApi;
+using Microsoft.Owin.Cors;
+using Microsoft.AspNet.SignalR;
 
 namespace WebApi
 {
@@ -20,7 +22,22 @@ namespace WebApi
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.MapSignalR();
+            app.Map("/signalr", map =>
+            {
+                map.UseCors(CorsOptions.AllowAll);
+
+                map.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
+                {
+                    Provider = new SignalROAuthBearerProvider()
+                });
+
+                var hubConfiguration = new HubConfiguration
+                {
+                    Resolver = GlobalHost.DependencyResolver,
+                };
+                map.RunSignalR(hubConfiguration);
+            });
+
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);

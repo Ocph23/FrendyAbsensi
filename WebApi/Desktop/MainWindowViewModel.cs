@@ -17,7 +17,8 @@ namespace Desktop
         public Repository<jabatan> JabatanCollection { get; }
         public Repository<absen> AbsenCollection { get; }
         public Repository<pegawai> AbsenTodayCollection { get; }
-        public HubClient HubClient { get; }
+        public Repository<pegawai> PengawasCollection { get; }
+        public HubClient HubClient { get; set; }
 
         public MainWindowViewModel()
         {
@@ -26,9 +27,14 @@ namespace Desktop
             this.JabatanCollection = new Repository<jabatan>("/api/jabatan");
             this.AbsenCollection = new Repository<absen>("/api/absen");
             this.AbsenTodayCollection = new Repository<pegawai>("/api/absentoday");
+            this.PengawasCollection = new Repository<pegawai>("/api/setpengawas");
 
-            this.HubClient = new Library.HubClient();
+        }
 
+        internal void StartSignalR()
+        {
+            HubClient = new HubClient(ResourcesBase.Token);
+            HubClient.Start();
         }
     }
 }

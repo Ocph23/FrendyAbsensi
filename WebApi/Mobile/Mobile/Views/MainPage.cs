@@ -1,53 +1,48 @@
 ﻿using System;
-
+using Mobile.Models;
 using Xamarin.Forms;
+using Plugin.Toasts;
 
 namespace Mobile
 {
-    public class MainPage : TabbedPage
+    public class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage(Services.AuthenticationToken token)
         {
-            Page itemsPage, aboutPage = null;
+            this.Token = token;
+            Title = "Login";
+            SignalrClient = new HubClient(Token);
+            SignalrClient.OnMessageReceived += SignalrClient_OnMessageReceived;
+            SignalrClient.OnThisUserAbsen += SignalrClient_OnThisUserAbsen;
+            SignalrClient.Start();
+        }
 
-            switch (Device.RuntimePlatform)
+        private async void SignalrClient_OnThisUserAbsen(Models.absen ab)
+        {
+            var options = new NotificationOptions()
             {
-                case Device.iOS:
-                    itemsPage = new NavigationPage(new ItemsPage())
-                    {
-                        Title = "Browse"
-                    };
-
-                    aboutPage = new NavigationPage(new AboutPage())
-                    {
-                        Title = "About"
-                    };
-                    itemsPage.Icon = "tab_feed.png";
-                    aboutPage.Icon = "tab_about.png";
-                    break;
-                default:
-                    itemsPage = new ItemsPage()
-                    {
-                        Title = "Browse"
-                    };
-
-                    aboutPage = new AboutPage()
-                    {
-                        Title = "About"
-                    };
-                    break;
-            }
-
-            Children.Add(itemsPage);
-            Children.Add(aboutPage);
-
-            Title = Children[0].Title;
+                Title = "Title",
+                Description = "Anda Telah Absen Hari Ini",
+                IsClickable = false // Set to true if you want the result Clicked to come back (if the user clicks it)
+            };
+            var notification = DependencyService.Get<IToastNotificator>();
+            var result = await notification.Notify(options);
         }
 
-        protected override void OnCurrentPageChanged()
+        private async void SignalrClient_OnMessageReceived(Models.absen ab)
         {
-            base.OnCurrentPageChanged();
-            Title = CurrentPage?.Title ?? string.Empty;
+            var options = new NotificationOptions()
+            {
+                Title = "Title",
+                Description = ab.JamMasuk.ToString(),
+                IsClickable = false // Set to true if you want the result Clicked to come back (if the user clicks it)
+            };
+            var notification = DependencyService.Get<IToastNotificator>();
+            var result = await notification.Notify(options);
         }
+
+        public HubClient SignalrClient { get; private set; }
+
+        public Services.AuthenticationToken Token { get; internal set; }
     }
 }

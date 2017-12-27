@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Views.MainMenu" Title="Menu Utama">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="HeightRequest" Value="80"/>
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+          
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="10">
+                <Button Command="{Binding DataPegawaiCommand}" Text="Data pegawai"/>
+                <Button Text="Data Absen Pegawai" Command="{Binding DataAbsenCommand}"/>
+                <Button Text="Laporan" Command="{Binding LaporanCommand}"/>
+                <Button Text="Tentang" Command="{Binding TentangCommand}"/>
+            </StackLayout>
+        </ScrollView>
+        
+    </ContentPage.Content>
+</ContentPage>

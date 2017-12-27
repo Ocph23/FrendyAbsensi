@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Views.LoginView">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <Entry Margin="5" Text="{Binding Email}" Placeholder="Email/User Name"/>
+            <Entry Margin="5" Text="{Binding Password}" IsPassword="True" Placeholder="Password"/>
+            <Button Margin="5" Command="{Binding LoginCommand}" Text="Login"/>
+            <Button Margin="5" Clicked="Button_Clicked" Text="Fire Notification "/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

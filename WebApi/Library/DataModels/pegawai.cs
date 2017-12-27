@@ -140,6 +140,20 @@ using DAL;
                      }
           }
 
+        [DbColumn("Pengawas")]
+        public bool Pengawas
+        {
+            get { return _pengawas; }
+            set
+            {
+                _pengawas = value;
+                OnPropertyChange("Pengawas");
+            }
+        }
+
+
+
+
         public jabatan Jabatan { get; set; }
         public bidang Bidang { get; set; }
         public absen AbsenToday { get; set; }
@@ -155,7 +169,8 @@ using DAL;
            private int  _idjabatan;
            private int  _idbidang;
            private string  _userid;
-      }
+        private bool _pengawas;
+    }
 }
 
 

@@ -216,6 +216,7 @@
     <Compile Include="Controllers\JabatanController.cs" />
     <Compile Include="Controllers\PegawaiController.cs" />
     <Compile Include="Controllers\PerizinanController.cs" />
+    <Compile Include="Controllers\SetPengawasController.cs" />
     <Compile Include="Models\AccountController.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\SignalROAuthBearerProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

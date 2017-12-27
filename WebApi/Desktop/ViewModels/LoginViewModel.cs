@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Library;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,7 @@ namespace Desktop.ViewModels
                     {
                         ResourcesBase.Token = Token;
                         IsLogin = true;
+                       
                         WindowClose();
                     }
                     else

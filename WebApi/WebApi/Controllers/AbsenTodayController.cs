@@ -20,7 +20,7 @@ namespace WebApi.Controllers
                 var result = from b in db.Pegawai.Select()
                              join c in db.Bidang.Select() on b.IdBidang equals c.Id
                              join d in db.Jabatan.Select() on b.IdJabatan equals d.Id
-                             join a in db.Absen.Where(O => O.Tanggal.Year==tanggal.Year ) on b.Id equals a.PegawaiId  into g
+                             join a in db.Absen.Where(O => O.Tanggal.Year==tanggal.Year && O.Tanggal.Month==tanggal.Month && O.Tanggal.Day==tanggal.Day ) on b.Id equals a.PegawaiId  into g
                              from ab in g.DefaultIfEmpty()
                              select new pegawai
                              {

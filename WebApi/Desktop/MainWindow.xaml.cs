@@ -34,7 +34,9 @@ namespace Desktop
             }else
             {
                 InitializeComponent();
-                this.DataContext = new MainWindowViewModel();
+                var main = new MainWindowViewModel();
+                this.DataContext = main;
+                main.StartSignalR();
             }
 
             

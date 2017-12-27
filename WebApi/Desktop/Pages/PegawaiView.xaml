@@ -40,6 +40,8 @@
                                 <MenuItem Header="Hapus Pegawai" Command="{Binding DeleteCommand}"/>
                                 <Separator></Separator>
                                 <MenuItem Header="Absen" Command="{Binding ViewAbsenCommand}"/>
+                                <Separator></Separator>
+                                <MenuItem Header="{Binding PengawasText}" Command="{Binding AddPengawasCommand}"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
 
@@ -62,7 +64,6 @@
                                 <TextBlock Height="35" Text="{Binding SelectedItem.Telepon}"/>
                                 <TextBlock Height="35" Text="{Binding SelectedItem.Alamat}"/>
                             </StackPanel>
-
                         </Grid>
                     </Expander>
                   

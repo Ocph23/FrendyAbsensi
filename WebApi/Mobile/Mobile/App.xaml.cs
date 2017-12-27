@@ -1,5 +1,6 @@
-﻿using System;
-
+﻿using Plugin.Toasts;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,10 +13,32 @@ namespace Mobile
         {
             InitializeComponent();
 
-            if (Device.RuntimePlatform == Device.iOS)
-                MainPage = new MainPage();
-            else
-                MainPage = new NavigationPage(new MainPage());
+           
+
+            MessagingCenter.Subscribe<Helpers.MessagingCenterAlert>(this, "message", async (message) =>
+            {
+                await Current.MainPage.DisplayAlert(message.Title, message.Message, message.Cancel);
+
+            });
+            SetMainPage();
+        }
+
+       
+
+        public static void SetMainPage()
+        {
+
+            var login = new Views.LoginView();
+
+            Current.MainPage = new NavigationPage( login);
+
+
+        }
+
+
+        public void ChangeScreen(Page page)
+        {
+            Current.MainPage = new NavigationPage(page);
         }
     }
 }
