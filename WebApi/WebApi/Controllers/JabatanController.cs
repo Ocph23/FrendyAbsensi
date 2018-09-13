@@ -45,6 +45,9 @@ namespace WebApi.Controllers
                         value.Id = db.Jabatan.InsertAndGetLastID(value);
                         if (value.Id > 0)
                         {
+                            var bidang = db.Bidang.Where(O => O.Id == value.IdBidang).FirstOrDefault();
+                            if (bidang != null)
+                                value.NamaBidang = bidang.Nama;
                             return Request.CreateResponse(HttpStatusCode.OK, value);
                         }
                         else

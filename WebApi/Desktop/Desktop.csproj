@@ -12,6 +12,8 @@
     <AssemblyName>Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +33,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DAL, Version=1.0.0.6, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="DPCtlUruNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\DigitalPersona\U.are.U SDK\Windows\Lib\.NET\DPCtlUruNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DPCtlXUru, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\DigitalPersona\U.are.U SDK\Windows\Lib\.NET\DPCtlXUru.dll</HintPath>
+    </Reference>
+    <Reference Include="DPUruNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\DigitalPersona\U.are.U SDK\Windows\Lib\.NET\DPUruNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DPXUru, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f32ef930fec5e5f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\DigitalPersona\U.are.U SDK\Windows\Lib\.NET\DPXUru.dll</HintPath>
+    </Reference>
     <Reference Include="FirstFloor.ModernUI, Version=1.0.9.0, Culture=neutral, PublicKeyToken=bc9b0c37bf06c6a9, processorArchitecture=MSIL">
       <HintPath>..\packages\ModernUI.WPF.1.0.9\lib\net45\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
@@ -53,13 +70,21 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.2\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\OcphDAL.3.0.5\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ocph.DAL, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OcphDAL.3.0.5\lib\net45\Ocph.DAL.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,9 +93,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -81,9 +108,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Collections\DataContext.cs" />
+    <Compile Include="Collections\IRepository.cs" />
     <Compile Include="Collections\Repository.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="EnumBooleanConverter.cs" />
+    <Compile Include="FingerPrint.cs" />
+    <Compile Include="Forms\AbsenVerification.xaml.cs">
+      <DependentUpon>AbsenVerification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddLiburView.xaml.cs">
+      <DependentUpon>AddLiburView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddNewBidang.xaml.cs">
       <DependentUpon>AddNewBidang.xaml</DependentUpon>
     </Compile>
@@ -93,6 +129,12 @@
     <Compile Include="Forms\AddNewPegawai.xaml.cs">
       <DependentUpon>AddNewPegawai.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddperizinanView.xaml.cs">
+      <DependentUpon>AddperizinanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EnrollmentView.xaml.cs">
+      <DependentUpon>EnrollmentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -100,28 +142,64 @@
     <Compile Include="Pages\AbsenView.xaml.cs">
       <DependentUpon>AbsenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AddNewPegawai.xaml.cs">
-      <DependentUpon>AddNewPegawai.xaml</DependentUpon>
+    <Compile Include="Pages\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Liburview.xaml.cs">
+      <DependentUpon>Liburview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Pengaturan.xaml.cs">
+      <DependentUpon>Pengaturan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PerizinanView.xaml.cs">
+      <DependentUpon>PerizinanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\BidangView.xaml.cs">
       <DependentUpon>BidangView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BulananView.xaml.cs">
+      <DependentUpon>BulananView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HarianView.xaml.cs">
+      <DependentUpon>HarianView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\JabatanView.xaml.cs">
       <DependentUpon>JabatanView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MingguanView.xaml.cs">
+      <DependentUpon>MingguanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PegawaiView.xaml.cs">
       <DependentUpon>PegawaiView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ResourcesBase.cs" />
+    <Compile Include="Splash.xaml.cs">
+      <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="ViewModels\AddLiburViewModel.cs" />
     <Compile Include="ViewModels\AddNewJabatanViewModel.cs" />
     <Compile Include="ViewModels\AddNewBidangViewModel.cs" />
     <Compile Include="ViewModels\AddNewPegawaiViewModel.cs" />
+    <Compile Include="ViewModels\AddperizinanViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BidangViewModel.cs" />
+    <Compile Include="ViewModels\HarianViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\JabatanViewModel.cs" />
+    <Compile Include="ViewModels\LiburViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PegawaiViewModel.cs" />
+    <Compile Include="ViewModels\PengaturanViewModel.cs" />
+    <Compile Include="ViewModels\PerizinanViewModel.cs" />
+    <Page Include="Forms\AbsenVerification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\AddLiburView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\AddNewBidang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +209,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\AddNewPegawai.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\AddperizinanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\EnrollmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,15 +237,39 @@
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Page Include="ModernUI.MyTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AbsenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AddNewPegawai.xaml">
+    <Page Include="Pages\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Liburview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Pengaturan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PerizinanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\BidangView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\BulananView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HarianView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,13 +281,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\MingguanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PegawaiView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Splash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -203,8 +323,12 @@
       <Link>SqlServerTypes\x86\SqlServerSpatial110.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\logoUstj.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SqlServerTypes\readme.htm" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

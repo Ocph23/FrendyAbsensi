@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-   public class LoginViewModel :DAL.BaseNotifyProperty
+   public class LoginViewModel :BaseViewModel
     {
         private string _userName;
 
         public string UserName
         {
             get { return _userName; }
-            set { _userName = value; OnPropertyChange("User Name"); }
+            set { SetProperty(ref _userName, value); }
         }
 
 
@@ -25,7 +25,7 @@ namespace Desktop.ViewModels
         public string Password
         {
             get { return _password; }
-            set { _password = value; OnPropertyChange("Password"); }
+            set { SetProperty(ref _password, value); }
         }
 
         private string _message;
@@ -33,7 +33,7 @@ namespace Desktop.ViewModels
         public string Message
         {
             get { return _message; }
-            set { _message = value; OnPropertyChange("Message"); }
+            set { SetProperty(ref _message, value); }
         }
 
         public CommandHandler LoginCommand { get; }
@@ -44,6 +44,7 @@ namespace Desktop.ViewModels
 
         public LoginViewModel()
         {
+            
             LoginCommand = new CommandHandler { CanExecuteAction = LoginCommandValidate, ExecuteAction =  LoginCommandAction };
             CancelCommand = new CommandHandler { CanExecuteAction = x => true, ExecuteAction = x => WindowClose() };
         }
@@ -60,13 +61,15 @@ namespace Desktop.ViewModels
 
         private async void LoginCommandAction(object obj)
         {
-            this.UserName = "Ocph23.test@gmail.com";
+            RingProgressActive = true;
+            this.UserName = "ocph23.test@gmail.com";
             Password = "Sony@77";
             using (var client = new Client())
             {
                 var strcontent = string.Format("grant_type=password&username={0}&password={1}", UserName, Password);
                 HttpContent content = new StringContent(strcontent, Encoding.UTF8, "application/x-www-form-urlencoded");
                 var response = await client.ClientContext.PostAsync("Token", content);
+                RingProgressActive = false;
                 if (response.IsSuccessStatusCode)
                 {
                    var x = await response.Content.ReadAsStringAsync();

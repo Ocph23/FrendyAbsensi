@@ -16,7 +16,17 @@ namespace WebApi.Controllers
             using (var db = new OcphDbContext())
             {
                 var result = from a in db.Perizinan.Select()
-                             select a;
+                             join b in db.Pegawai.Select() on a.PegawaiId equals b.Id
+                             select new perizinan
+                             {
+                                 Catatan = a.Catatan,
+                                 Id = a.Id,
+                                 Jenis = a.Jenis,
+                                 Mulai = a.Mulai,
+                                 PegawaiId = a.PegawaiId,
+                                 Selesai = a.Selesai,
+                                 Pegawai = b
+                             };
                 return result.ToList();
             }
         }
@@ -72,7 +82,7 @@ namespace WebApi.Controllers
                 {
                     using (var db = new OcphDbContext())
                     {
-                        var isUpdate = db.Perizinan.Update(O => new { O.Catatan,O.Jenis,O.Mulai,O.PegawaiId,O.Selesai,O.Status }, value, O => O.Id == value.Id);
+                        var isUpdate = db.Perizinan.Update(O => new { O.Catatan,O.Jenis,O.Mulai,O.PegawaiId,O.Selesai}, value, O => O.Id == value.Id);
                         if (isUpdate)
                         {
                             return Request.CreateResponse(HttpStatusCode.OK, value);

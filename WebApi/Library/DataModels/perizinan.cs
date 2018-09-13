@@ -3,94 +3,80 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+using Ocph. DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Library.DataModels 
 { 
      [TableName("perizinan")] 
-     public class perizinan:BaseNotifyProperty  
+     public class perizinan:BaseNotify
    {
           [PrimaryKey("Id")] 
           [DbColumn("Id")] 
           public int Id 
           { 
                get{return _id;} 
-               set{ 
-                      _id=value; 
-                     OnPropertyChange("Id");
-                     }
+               set{
+                SetProperty(ref _id, value);
+            }
           } 
 
           [DbColumn("Mulai")] 
           public DateTime Mulai 
           { 
                get{return _mulai;} 
-               set{ 
-                      _mulai=value; 
-                     OnPropertyChange("Mulai");
-                     }
+               set{
+                SetProperty(ref _mulai, value);
+            }
           } 
 
           [DbColumn("Selesai")] 
           public DateTime Selesai 
           { 
                get{return _selesai;} 
-               set{ 
-                      _selesai=value; 
-                     OnPropertyChange("Selesai");
-                     }
+               set{
+                SetProperty(ref _selesai, value);
+            }
           } 
 
-          [DbColumn("Status")]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public JenisPerizinan Status 
-          { 
-               get{return _status;} 
-               set{ 
-                      _status=value; 
-                     OnPropertyChange("Status");
-                     }
-          } 
 
           [DbColumn("Catatan")] 
           public string Catatan 
           { 
                get{return _catatan;} 
-               set{ 
-                      _catatan=value; 
-                     OnPropertyChange("Catatan");
-                     }
+               set{
+                SetProperty(ref _catatan, value);
+            }
           } 
 
           [DbColumn("PegawaiId")] 
           public int PegawaiId 
           { 
                get{return _pegawaiid;} 
-               set{ 
-                      _pegawaiid=value; 
-                     OnPropertyChange("PegawaiId");
-                     }
+               set{
+                SetProperty(ref _pegawaiid, value);
+            }
           } 
 
-          [DbColumn("Jenis")] 
-          public string Jenis 
+          [DbColumn("Jenis")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StatusKehadiran Jenis 
           { 
                get{return _jenis;} 
-               set{ 
-                      _jenis=value; 
-                     OnPropertyChange("Jenis");
-                     }
-          } 
+               set{
+                SetProperty(ref _jenis, value);
+            }
+          }
 
-          private int  _id;
+        public pegawai Pegawai { get; set; }
+
+        private int  _id;
            private DateTime  _mulai;
            private DateTime  _selesai;
-           private JenisPerizinan  _status;
            private string  _catatan;
            private int  _pegawaiid;
-           private string  _jenis;
+           private StatusKehadiran  _jenis;
       }
 }
 

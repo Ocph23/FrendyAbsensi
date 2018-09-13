@@ -1,19 +1,12 @@
-﻿using Library.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
+﻿using Desktop.Collections;
+using Library.DataModels;
+using Ocph.DAL;
 
 namespace Desktop.ViewModels
 {
-   public class BidangViewModel:DAL.BaseNotifyProperty
+    public class BidangViewModel:BaseNotify
     {
         private bidang _bidang;
-        public CollectionView SourceView { get; set; }
         public CommandHandler AddCommand { get; }
         public CommandHandler EditCommand { get; }
         public CommandHandler DeleteCommand { get; }
@@ -25,16 +18,16 @@ namespace Desktop.ViewModels
             }
             set
             {
-                _bidang = value;
-                OnPropertyChange("SelectedItem");
+                SetProperty(ref _bidang, value);
             }
         }
 
+        public Repository<bidang> MainCollection { get; }
 
         public BidangViewModel()
         {
-            SourceView = (CollectionView)CollectionViewSource.GetDefaultView(ResourcesBase.GetMainWindowViewModel().BidangCollection);
-
+            MainCollection = ResourcesBase.GetMainWindowViewModel().BidangCollection;
+            MainCollection.SourceView.Refresh();
             AddCommand = new CommandHandler { CanExecuteAction = x => true, ExecuteAction = AddCommandAction };
             EditCommand = new CommandHandler { CanExecuteAction = x => SelectedItem != null, ExecuteAction = EditCommandAction };
             DeleteCommand = new CommandHandler { CanExecuteAction = x => SelectedItem != null, ExecuteAction = DeleteCommandAction };
@@ -46,7 +39,7 @@ namespace Desktop.ViewModels
             var vm = new ViewModels.AddNewBidangViewModel(SelectedItem);
             form.DataContext = vm;
             form.ShowDialog();
-            SourceView.Refresh();
+           MainCollection.SourceView.Refresh();
         }
 
         private void AddCommandAction(object obj)
@@ -55,12 +48,12 @@ namespace Desktop.ViewModels
             var vm = new ViewModels.AddNewBidangViewModel() { WindowClose = form.Close };
             form.DataContext = vm;
             form.ShowDialog();
-            SourceView.Refresh();
+            MainCollection.SourceView.Refresh();
         }
         private void DeleteCommandAction(object obj)
         {
-            ResourcesBase.GetMainWindowViewModel().BidangCollection.Remove(SelectedItem);
-            SourceView.Refresh();
+            MainCollection.Remove(SelectedItem);
+            MainCollection.SourceView.Refresh();
         }
     }
 }

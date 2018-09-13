@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Desktop.Pages
 {
     /// <summary>
-    /// Interaction logic for AddNewPegawai.xaml
+    /// Interaction logic for BulananView.xaml
     /// </summary>
-    public partial class AddNewPegawai : UserControl
+    public partial class BulananView : UserControl
     {
-        public AddNewPegawai()
+        public BulananView()
         {
             InitializeComponent();
         }

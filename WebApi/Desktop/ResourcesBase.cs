@@ -17,6 +17,11 @@ namespace Desktop
             return (App.Current.Windows[0] as MainWindow).DataContext as MainWindowViewModel;
         }
 
+        public static FingerPrint GetFinger()
+        {
+            return GetMainWindowViewModel().Finger;
+        }
+
         public static List<T> GetEnumCollection<T>()
         {
             var enums = Enum.GetValues(typeof(T));

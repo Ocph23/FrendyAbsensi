@@ -16,14 +16,24 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Margin="10">
-                <Button Command="{Binding DataPegawaiCommand}" Text="Data pegawai"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70*"></RowDefinition>
+                <RowDefinition Height="30*"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" Margin="10">
                 <Button Text="Data Absen Pegawai" Command="{Binding DataAbsenCommand}"/>
+                <Button Command="{Binding DataPegawaiCommand}" Text="Data pegawai"/>
                 <Button Text="Laporan" Command="{Binding LaporanCommand}"/>
                 <Button Text="Tentang" Command="{Binding TentangCommand}"/>
             </StackLayout>
-        </ScrollView>
+            <StackLayout Grid.Row="1">
+                <Image HorizontalOptions="Center" WidthRequest="30" HeightRequest="30"></Image>
+                <Label HorizontalOptions="CenterAndExpand" Text="ABSEN KEPEGAWAIAN"></Label>
+                <Label HorizontalOptions="CenterAndExpand" Text="PEMERINTAH KABUPATEN JAYAPURA"/>
+            </StackLayout>
+        </Grid>
         
     </ContentPage.Content>
 </ContentPage>

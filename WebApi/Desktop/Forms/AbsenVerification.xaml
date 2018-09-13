@@ -1,0 +1,36 @@
+﻿<mui:ModernWindow x:Class="Desktop.Forms.AbsenVerification"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                  xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+                       xmlns:local="clr-namespace:Desktop.Forms"
+                  xmlns:finger="clr-namespace:DPCtlXUru;assembly=DPCtlXUru"
+                  Style="{StaticResource BlankWindow}"
+                  mc:Ignorable="d"
+                  Title="Absen"
+                  Height="197.906" Width="653.967">
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+            <WindowsFormsHost>
+                <finger:IdentificationXControl x:Name="verification"></finger:IdentificationXControl>
+            </WindowsFormsHost>
+            <Grid Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Width="100" Margin="5" Name="photo" Source="{Binding Pegawai.Photo}" />
+
+                <StackPanel  Grid.Row="1"  >
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding Pegawai.Nama}" FontSize="27"/>
+                    <TextBlock HorizontalAlignment="Center" Text="{Binding Pegawai.NIP,StringFormat='NIP {0}'}" FontSize="17"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</mui:ModernWindow>

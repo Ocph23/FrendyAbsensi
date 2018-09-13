@@ -19,19 +19,19 @@
                 <TextBlock Text="Data Pegawai" Style="{StaticResource Heading2}" Grid.RowSpan="2" />
                 <Grid Grid.Row="1" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="30*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid ItemsSource="{Binding SourceView}" Grid.Column="0"
+                    <DataGrid x:Name="dg" ItemsSource="{Binding MainPegawai.SourceView}" Grid.Column="0"
                               SelectedItem="{Binding SelectedItem}"  RowHeight="35"
-                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
+                              CanUserAddRows="False" BeginningEdit="dg_BeginningEdit"  CanUserReorderColumns="False" CanUserDeleteRows="False" AutoGenerateColumns="False"
                               >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Nama" Binding="{Binding Nama}"/>
-                            <DataGridTextColumn Header="NIP" Binding="{Binding NIP}"/>
-                            <DataGridTextColumn Header="Jenis Kelamin" Binding="{Binding JenisKelamin}"/>
-                            <DataGridTextColumn Header="Bidang" Binding="{Binding Bidang.Nama}"/>
-                            <DataGridTextColumn Header="Jabatan" Binding="{Binding Jabatan.Nama}"/>
+                            <DataGridTextColumn Width="*" Header="Nama" Binding="{Binding Nama}"/>
+                            <DataGridTextColumn Width="*" Header="NIP" Binding="{Binding NIP}"/>
+                            <DataGridTextColumn Width="*" Header="Jenis Kelamin" Binding="{Binding JenisKelamin}"/>
+                            <DataGridTextColumn Width="*" Header="Bidang" Binding="{Binding Bidang.Nama}"/>
+                            <DataGridTextColumn Width="*" Header="Jabatan" Binding="{Binding Jabatan.Nama}"/>
                         </DataGrid.Columns>
                         <DataGrid.ContextMenu>
                             <ContextMenu>
@@ -42,29 +42,54 @@
                                 <MenuItem Header="Absen" Command="{Binding ViewAbsenCommand}"/>
                                 <Separator></Separator>
                                 <MenuItem Header="{Binding PengawasText}" Command="{Binding AddPengawasCommand}"/>
+                                <Separator></Separator>
+                                <MenuItem Command="{Binding EnrollmentCommand}" Header="Enrollment"/>
                             </ContextMenu>
                         </DataGrid.ContextMenu>
-
+                        
                     </DataGrid>
-                    <Expander Margin="20,10,10,10" Header="Detail Pegawai" IsExpanded="True" Grid.Column="1">
+                    <Expander  Name="expDetail" Margin="20,10,10,10" Header="Detail Pegawai" IsExpanded="True" Grid.Column="1">
                         <Grid  Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40*"/>
-                                <ColumnDefinition Width="60*"/>
+                                <ColumnDefinition Width="30*"/>
+                                <ColumnDefinition Width="70*"/>
                             </Grid.ColumnDefinitions>
-                            <StackPanel Margin="10" Grid.Column="0">
+                            <StackPanel Grid.ColumnSpan="2">
+                                <Border  HorizontalAlignment="Left" BorderThickness="1" BorderBrush="#FF003153" Width="75" Height="100">
+                                    <Image   Source="{Binding SelectedItem.Photo}" >
+                                        <Image.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Ubah Foto" Command="{Binding ChangeFotoCommand}"/>
+                                            </ContextMenu>
+                                        </Image.ContextMenu>
+                                    </Image>
+                                    <Border.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Ubah Foto" Command="{Binding ChangeFotoCommand}"/>
+                                        </ContextMenu>
+                                    </Border.ContextMenu>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Margin="10" Grid.Column="0">
                                 <TextBlock Height="35" Text="Tempat Lahir"/>
                                 <TextBlock Height="35" Text="Tanggal Lahir"/>
                                 <TextBlock Height="35" Text="Telepon"/>
+                                <TextBlock Height="35" Text="Email "/>
                                 <TextBlock Height="35" Text="Alamat "/>
                             </StackPanel>
-                            <StackPanel Margin="10" Grid.Column="1">
+                            <StackPanel Grid.Row="1" Margin="10" Grid.Column="1">
                                 <TextBlock Height="35" Text="{Binding SelectedItem.TempatLahir}"/>
                                 <TextBlock Height="35" Text="{Binding SelectedItem.TanggalLahir}"/>
                                 <TextBlock Height="35" Text="{Binding SelectedItem.Telepon}"/>
+                                <TextBlock Height="35" Text="{Binding SelectedItem.Email}"/>
                                 <TextBlock Height="35" Text="{Binding SelectedItem.Alamat}"/>
                             </StackPanel>
                         </Grid>
+                      
                     </Expander>
                   
                 </Grid>

@@ -1,9 +1,9 @@
-using DAL;
+using Ocph.DAL;
 
 namespace Library.DataModels
 {
     [TableName("bidang")]
-    public class bidang : BaseNotifyProperty
+    public class bidang : BaseNotify
     {
         [PrimaryKey("Id")]
         [DbColumn("Id")]
@@ -13,7 +13,7 @@ namespace Library.DataModels
             set
             {
                 _id = value;
-                OnPropertyChange("Id");
+                SetProperty(ref _id, value);
             }
         }
 
@@ -23,8 +23,7 @@ namespace Library.DataModels
             get { return _nama; }
             set
             {
-                _nama = value;
-                OnPropertyChange("Nama");
+                SetProperty(ref _nama , value);
             }
         }
 
@@ -34,8 +33,7 @@ namespace Library.DataModels
             get { return _keterangan; }
             set
             {
-                _keterangan = value;
-                OnPropertyChange("Keterangan");
+                SetProperty(ref _keterangan, value);
             }
         }
 

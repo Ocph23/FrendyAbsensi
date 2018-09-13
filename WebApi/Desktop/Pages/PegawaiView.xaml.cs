@@ -25,5 +25,15 @@ namespace Desktop.Pages
             InitializeComponent();
             this.DataContext = new ViewModels.PegawaiViewModel();
         }
+
+        private void dg_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
+        {
+            dg.CancelEdit();
+        }
+
+        private void Image_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

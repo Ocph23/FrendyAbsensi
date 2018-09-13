@@ -16,17 +16,24 @@
             <TextBlock Text="{Binding Today}" />
         </StackPanel>
         <Grid Grid.Row="1" >
-            <DataGrid ItemsSource="{Binding SourceView}" AutoGenerateColumns="False" RowHeight="35" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid  ItemsSource="{Binding MainCollection.SourceView}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" RowHeight="35" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Nama" Binding="{Binding Nama}"/>
                     <DataGridTextColumn Width="*" Header="NIP" Binding="{Binding NIP}"/>
                     <DataGridTextColumn Width="*" Header="Kehadiran" Binding="{Binding AbsenToday.Status}"/>
                     <DataGridTextColumn Width="*" Header="Masuk" Binding="{Binding AbsenToday.JamMasuk}"/>
                     <DataGridTextColumn Width="*" Header="Pulang" Binding="{Binding AbsenToday.JamPulang}"/>
-                    <DataGridTextColumn IsReadOnly="True" Width="*" Header="Lama Kerja" Binding="{Binding AbsenToday.LamaKerja}"/>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="SetAbsen" Command="{Binding SetAbsenCommand}" CommandParameter="{Binding SelectedItem}"></MenuItem>
+                        <MenuItem Header="Refresh" Command="{Binding RefreshCommand}"></MenuItem>
+                    </ContextMenu>
+                
+                </DataGrid.ContextMenu>
             </DataGrid>
+            <mui:ModernProgressRing IsActive="{Binding RingProgressActive}" Width="80" Height="80" Style="{StaticResource WanderingCubesProgressRingStyle}" />
         </Grid>
-
+       
     </Grid>
 </UserControl>

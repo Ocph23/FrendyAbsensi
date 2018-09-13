@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 namespace WebApi.Controllers
@@ -39,17 +40,13 @@ namespace WebApi.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    using (var db = new OcphDbContext())
+
+                    var context = new Models.AbsenContext(value);
+                    if(context.Success)
+                        return Request.CreateResponse(HttpStatusCode.OK, value);
+                    else
                     {
-                        value.Id = db.Absen.InsertAndGetLastID(value);
-                        if (value.Id > 0)
-                        {
-                            return Request.CreateResponse(HttpStatusCode.OK, value);
-                        }
-                        else
-                        {
-                            throw new SystemException("Data tidak tersimpan");
-                        }
+                        throw new SystemException("Anda Tidak Dapat Absen, Hubungi Administrator");
                     }
                 }
                 else
@@ -59,9 +56,11 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotModified, ex.Message);
+
+                return new ErrorResponse(Request.CreateErrorResponse(HttpStatusCode.NotModified, ex.Message),ex.Message);
             }
         }
+       
 
         // PUT: api/Pegawai/5
         public HttpResponseMessage Put(int id, [FromBody]absen value)

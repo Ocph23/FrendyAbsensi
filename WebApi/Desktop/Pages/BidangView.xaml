@@ -15,7 +15,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Data Bidang" Style="{StaticResource Heading2}" Grid.RowSpan="2" />
-                    <DataGrid ItemsSource="{Binding SourceView}" Grid.Row="1"
+                    <DataGrid ItemsSource="{Binding  MainCollection.SourceView}" Grid.Row="1"
                               RowHeight="35"
                                SelectedItem="{Binding SelectedItem}"
                               CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False"

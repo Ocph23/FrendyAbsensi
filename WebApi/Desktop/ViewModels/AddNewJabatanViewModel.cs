@@ -20,8 +20,7 @@ namespace Desktop.ViewModels
             get { return _title; }
             set
             {
-                _title = value;
-                OnPropertyChange("Title");
+                SetProperty(ref _title, value);
             }
         }
 

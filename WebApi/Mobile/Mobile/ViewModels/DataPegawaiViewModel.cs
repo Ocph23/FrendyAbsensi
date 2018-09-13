@@ -41,7 +41,7 @@ namespace Mobile.ViewModels
                 MessagingCenter.Send(new MessagingCenterAlert
                 {
                     Title = "Error",
-                    Message = "Unable to load items.",
+                    Message =ex.Message,
                     Cancel = "OK"
                 }, "message");
             }

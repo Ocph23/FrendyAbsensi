@@ -1,33 +1,130 @@
 ﻿using Desktop.Collections;
 using Library.DataModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR.Client;
 using Library;
+using System.Drawing;
+using System.Drawing.Imaging;
+using DPUruNet;
+using System.Linq;
 
 namespace Desktop
 {
-   public class MainWindowViewModel
+    public class MainWindowViewModel
     {
-        public Repository<pegawai> PegawaiCollection { get; }
-        public Repository<bidang> BidangCollection { get; }
-        public Repository<jabatan> JabatanCollection { get; }
-        public Repository<absen> AbsenCollection { get; }
-        public Repository<pegawai> AbsenTodayCollection { get; }
-        public Repository<pegawai> PengawasCollection { get; }
+        private Repository<pegawai> _absenTodayCollection;
+        private Repository<perizinan> repositoryPerizinan;
+        private Repository<pegawai> repositoryPegawai;
+        private Repository<bidang> bidangCollection;
+        private Repository<jabatan> jabatanCollection;
+        private Repository<absen> absenCollection;
+        private Repository<pegawai> pengawasCollection;
+        private Repository<libur> _liburCollection;
+        private Repository<pengaturan> _pengaturanCollection;
+        public FingerPrint Finger { get; set; }
+
+        public Repository<pengaturan> PengaturanCollection
+        {
+            get {
+                if (_pengaturanCollection == null)
+                    _pengaturanCollection = new Repository<pengaturan>("/api/pengaturan");
+                return _pengaturanCollection; }
+            set
+            {
+                _pengaturanCollection = value;
+            }
+        }
+
+      //  private ReaderCollection _readers;
+
+        public Repository<pegawai> AbsenTodayCollection
+        {
+            get
+            {
+                if (_absenTodayCollection == null)
+                    _absenTodayCollection = new Repository<pegawai>("/api/absentoday");
+                return _absenTodayCollection;
+            }
+
+
+        }
+        public Repository<perizinan> PerizinanCollection
+        {
+            get
+            {
+                if (repositoryPerizinan == null)
+                    repositoryPerizinan = new Repository<perizinan>("/api/perizinan");
+                return repositoryPerizinan;
+            }
+        }
+        public Repository<pegawai> PegawaiCollection
+        {
+            get
+            {
+                if (repositoryPegawai == null)
+                    repositoryPegawai = new Repository<pegawai>("/api/pegawai");
+                return repositoryPegawai;
+
+            }
+        }
+        public Repository<bidang> BidangCollection
+        {
+            get
+            {
+                if (bidangCollection == null)
+                    bidangCollection = new Repository<bidang>("/api/bidang");
+                return bidangCollection;
+            }
+        }
+        public Repository<jabatan> JabatanCollection
+        {
+            get
+            {
+                if (jabatanCollection == null)
+                    jabatanCollection = new Repository<jabatan>("/api/jabatan");
+                return jabatanCollection;
+            }
+        }
+        public Repository<absen> AbsenCollection
+        {
+            get
+            {
+                if (absenCollection == null)
+                    absenCollection = new Repository<absen>("/api/absen");
+                return absenCollection;
+            }
+        }
+        public Repository<pegawai> PengawasCollection
+        {
+            get
+            {
+                if (pengawasCollection == null)
+                    pengawasCollection = new Repository<pegawai>("/api/setpengawas");
+                return pengawasCollection;
+            }
+        }
+
+
+        public Repository<libur> LiburCollection {
+            get
+            {
+                if (_liburCollection == null)
+                    _liburCollection = new Repository<libur>("/api/libur");
+
+                return _liburCollection;
+            }
+        }
+
         public HubClient HubClient { get; set; }
 
-        public MainWindowViewModel()
-        {
-            this.PegawaiCollection = new Repository<pegawai>("/api/pegawai");
-            this.BidangCollection = new Repository<bidang>("/api/bidang");
-            this.JabatanCollection = new Repository<jabatan>("/api/jabatan");
-            this.AbsenCollection = new Repository<absen>("/api/absen");
-            this.AbsenTodayCollection = new Repository<pegawai>("/api/absentoday");
-            this.PengawasCollection = new Repository<pegawai>("/api/setpengawas");
+
+      
+
+        public MainWindowViewModel() {
+           PengaturanCollection= new Repository<pengaturan>("/api/pengaturan");
+         //  var res = ReaderCollection.GetReaders();
+            Finger = new FingerPrint();
+
+
 
         }
 
@@ -37,4 +134,8 @@ namespace Desktop
             HubClient.Start();
         }
     }
+
+
+
+
 }

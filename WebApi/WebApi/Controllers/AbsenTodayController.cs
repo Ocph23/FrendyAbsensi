@@ -24,7 +24,7 @@ namespace WebApi.Controllers
                              from ab in g.DefaultIfEmpty()
                              select new pegawai
                              {
-                                 Id = b.Id, Alamat=b.Alamat,  IdBidang =b.IdBidang, IdJabatan=b.IdJabatan, JenisKelamin=b.JenisKelamin, Nama=b.Nama, NIP=b.NIP, TanggalLahir=b.TanggalLahir,
+                                Enrollment=b.Enrollment, Photo=b.Photo,  Id = b.Id, Alamat=b.Alamat,  IdBidang =b.IdBidang, IdJabatan=b.IdJabatan, JenisKelamin=b.JenisKelamin, Nama=b.Nama, NIP=b.NIP, TanggalLahir=b.TanggalLahir,
                                   Telepon=b.Telepon, TempatLahir=b.TempatLahir, UserId=b.UserId, Bidang =c, Jabatan=d, AbsenToday=ab
                              };
                 return result.ToList();
@@ -36,8 +36,9 @@ namespace WebApi.Controllers
         {
             using (var db = new OcphDbContext())
             {
-                var result = from a in db.Absen.Where(O => O.Tanggal == DateTime.Now && O.PegawaiId == id)
-                             join b in db.Pegawai.Select() on a.PegawaiId equals b.Id
+                DateTime tanggal = DateTime.Now;
+                var result = from b in db.Pegawai.Where(O=>O.Id==id)
+                                join a in  db.Absen.Where(O => O.Tanggal.Year == tanggal.Year && O.Tanggal.Month == tanggal.Month && O.Tanggal.Day == tanggal.Day) on b.Id equals a.PegawaiId
                              select new absen
                              {
                                  Id = a.Id,

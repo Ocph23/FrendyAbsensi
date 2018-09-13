@@ -38,7 +38,7 @@ namespace WebApi.Controllers
             var role = "Pengawas";
             using (var db = new OcphDbContext())
             {
-                var trans = db.Connection.BeginTransaction();
+                var trans = db.BeginTransaction();
                 try
                 {
                     if (value.Pengawas == false)

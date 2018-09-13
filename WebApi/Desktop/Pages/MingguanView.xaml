@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Desktop.Pages.MingguanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="BASIC PAGE" Style="{StaticResource Heading2}" />
+            <WrapPanel>
+                <Label Content="Tanggal" Width="75"/>
+                <DatePicker SelectedDateChanged="DatePicker_SelectedDateChanged" Width="100"/>
+            </WrapPanel>
+        </StackPanel>
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding SourceView}" MinWidth="200" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nama" Binding="{Binding NIP}"/>
+                <DataGridTextColumn Header="Nama" Binding="{Binding Nama}"/>
+                <DataGridTextColumn Header="Hadir" Binding="{Binding Sumarry.Hadir}"/>
+                <DataGridTextColumn Header="Izin" Binding="{Binding Sumarry.Izin}"/>
+                <DataGridTextColumn Header="Sakit" Binding="{Binding Sumarry.Sakit}"/>
+                <DataGridTextColumn Header="Alpa" Binding="{Binding Sumarry.Alpha}"/>
+                <DataGridTextColumn Header="Cuti" Binding="{Binding Sumarry.Cuti}"/>
+                <DataGridTextColumn Header="TB" Binding="{Binding Sumarry.TugasBelajar}"/>
+                <DataGridTextColumn Header="DL" Binding="{Binding Sumarry.DinasLuar}"/>
+                <DataGridTextColumn Header="TK" Binding="{Binding Sumarry.TugasKedinasan}"/>
+                <DataGridTextColumn Header="Libur" Binding="{Binding Sumarry.Libur}"/>
+                <DataGridTextColumn Header="Terlambat" Binding="{Binding Sumarry.Terlambat}"/>
+                <DataGridTextColumn Header="Cepat Pulang" Binding="{Binding Sumarry.CepatPulang}"/>
+                <DataGridTextColumn Header="Lembur" Binding="{Binding Sumarry.Lembur}"/>
+                
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

@@ -28,7 +28,7 @@ namespace WebApi.Controllers
                 var result = from a in db.Pegawai.Select()
                              join b in db.Bidang.Select() on a.IdBidang equals b.Id
                              join c in db.Jabatan.Select() on a.IdJabatan equals c.Id
-                             select new pegawai {  Email=a.Email, Pengawas=a.Pengawas,Golongan=a.Golongan, Alamat=a.Alamat, Id=a.Id, IdBidang=a.IdBidang, IdJabatan=a.IdJabatan, JenisKelamin=a.JenisKelamin, Nama=a.Nama,
+                             select new pegawai { Enrollment=a.Enrollment, Photo=a.Photo,  Email=a.Email, Pengawas=a.Pengawas,Golongan=a.Golongan, Alamat=a.Alamat, Id=a.Id, IdBidang=a.IdBidang, IdJabatan=a.IdJabatan, JenisKelamin=a.JenisKelamin, Nama=a.Nama,
                               NIP=a.NIP, TanggalLahir=a.TanggalLahir, Telepon=a.Telepon, TempatLahir=a.TempatLahir, UserId=a.UserId,Bidang=b,Jabatan=c};
                 return result.ToList();
             }
@@ -100,6 +100,8 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
+                if (value.Id > 0)
+                    return Request.CreateResponse(HttpStatusCode.Created, "Email Confirm Account Not Sended");
 
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message, ex);
             }
@@ -114,7 +116,7 @@ namespace WebApi.Controllers
                 {
                     using (var db = new OcphDbContext())
                     {
-                       var isUpdate = db.Pegawai.Update(O=>new { O.Alamat,O.IdBidang,O.IdJabatan,O.JenisKelamin,O.Nama,O.NIP,O.TanggalLahir,O.Telepon,O.TempatLahir,O.UserId},
+                       var isUpdate = db.Pegawai.Update(O=>new { O.Alamat,O.IdBidang,O.IdJabatan,O.JenisKelamin,O.Nama,O.NIP,O.TanggalLahir,O.Telepon,O.TempatLahir,O.UserId,O.Photo,O.Enrollment},
                             value,O=>O.Id==value.Id );
                         if (isUpdate)
                         {

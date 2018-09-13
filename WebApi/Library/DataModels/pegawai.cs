@@ -3,112 +3,102 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+using Ocph.DAL;
  
  namespace Library.DataModels 
 { 
      [TableName("pegawai")] 
-     public class pegawai:BaseNotifyProperty  
+     public class pegawai:BaseNotify
    {
           [PrimaryKey("Id")] 
           [DbColumn("Id")] 
           public int Id 
           { 
                get{return _id;} 
-               set{ 
-                      _id=value; 
-                     OnPropertyChange("Id");
-                     }
+               set{
+                SetProperty(ref  _id, value);
+            }
           } 
 
           [DbColumn("Nama")] 
           public string Nama 
           { 
                get{return _nama;} 
-               set{ 
-                      _nama=value; 
-                     OnPropertyChange("Nama");
-                     }
+               set{
+                SetProperty(ref _nama , value);
+            }
           } 
 
           [DbColumn("NIP")] 
           public string NIP 
           { 
                get{return _nip;} 
-               set{ 
-                      _nip=value; 
-                     OnPropertyChange("NIP");
-                     }
+               set{
+                SetProperty(ref _nip, value);
+            }
           } 
 
           [DbColumn("JenisKelamin")] 
           public Gender JenisKelamin 
           { 
                get{return _jeniskelamin;} 
-               set{ 
-                      _jeniskelamin=value; 
-                     OnPropertyChange("JenisKelamin");
-                     }
+               set{
+                SetProperty(ref _jeniskelamin, value);
+            }
           } 
 
           [DbColumn("TempatLahir")] 
           public string TempatLahir 
           { 
                get{return _tempatlahir;} 
-               set{ 
-                      _tempatlahir=value; 
-                     OnPropertyChange("TempatLahir");
-                     }
+               set{
+                SetProperty(ref _tempatlahir , value);
+            }
           } 
 
           [DbColumn("TanggalLahir")] 
           public DateTime TanggalLahir 
           { 
                get{return _tanggallahir;} 
-               set{ 
-                      _tanggallahir=value; 
-                     OnPropertyChange("TanggalLahir");
-                     }
+               set{
+                SetProperty(ref _tanggallahir , value);
+            }
           } 
 
           [DbColumn("Alamat")] 
           public string Alamat 
           { 
                get{return _alamat;} 
-               set{ 
-                      _alamat=value; 
-                     OnPropertyChange("Alamat");
-                     }
+               set{
+                SetProperty(ref _alamat , value);
+            }
           } 
 
           [DbColumn("Telepon")] 
           public string Telepon 
           { 
                get{return _telepon;} 
-               set{ 
-                      _telepon=value; 
-                     OnPropertyChange("Telepon");
-                     }
+               set{
+                SetProperty(ref _telepon , value);
+            }
           } 
 
           [DbColumn("IdJabatan")] 
           public int IdJabatan 
           { 
                get{return _idjabatan;} 
-               set{ 
-                      _idjabatan=value; 
-                     OnPropertyChange("IdJabatan");
-                     }
+               set{
+                SetProperty(ref _idjabatan , value);
+            }
           } 
 
           [DbColumn("IdBidang")] 
           public int IdBidang 
           { 
                get{return _idbidang;} 
-               set{ 
-                      _idbidang=value; 
-                     OnPropertyChange("IdBidang");
-                     }
+               set{
+                SetProperty(ref _idbidang , value);
+            }
           } 
 
            
@@ -117,7 +107,7 @@ using DAL;
         public string Email
         {
             get { return email; }
-            set { email = value; OnPropertyChange("Email"); }
+            set { SetProperty(ref email, value); }
         }
 
         private string golongan;
@@ -125,7 +115,7 @@ using DAL;
         public string Golongan
         {
             get { return golongan; }
-            set { golongan = value; OnPropertyChange("Golongan"); }
+            set { SetProperty(ref golongan , value); }
         }
 
 
@@ -134,10 +124,9 @@ using DAL;
           public string UserId 
           { 
                get{return _userid;} 
-               set{ 
-                      _userid=value; 
-                     OnPropertyChange("UserId");
-                     }
+               set{
+                SetProperty(ref _userid, value);
+            }
           }
 
         [DbColumn("Pengawas")]
@@ -146,13 +135,33 @@ using DAL;
             get { return _pengawas; }
             set
             {
-                _pengawas = value;
-                OnPropertyChange("Pengawas");
+                SetProperty(ref _pengawas, value);
             }
         }
 
+        private byte[] photo;
+        [DbColumn("Photo")]
+        public byte[] Photo
+        {
+            get { return photo; }
+            set { photo = value;
+                SetProperty(ref photo, value);
+            }
+        }
 
+        [DbColumn("Enrollment")]
+        public string Enrollment
+        {
+            get { return enrollment; }
+            set
+            {
+                SetProperty(ref enrollment, value);
+            }
+        }
+        
 
+        public virtual List<absen> Absens { get; set; }
+        public virtual Laporan Sumarry { get; set; }
 
         public jabatan Jabatan { get; set; }
         public bidang Bidang { get; set; }
@@ -170,6 +179,7 @@ using DAL;
            private int  _idbidang;
            private string  _userid;
         private bool _pengawas;
+        private string enrollment;
     }
 }
 

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+using Ocph.DAL;
 
 namespace Library.DataModels
 {
     [TableName("absen")]
-    public class absen : BaseNotifyProperty
+    public class absen :BaseNotify 
     {
         [PrimaryKey("Id")]
         [DbColumn("Id")]
@@ -17,8 +17,7 @@ namespace Library.DataModels
             get { return _id; }
             set
             {
-                _id = value;
-                OnPropertyChange("Id");
+                SetProperty(ref _id, value);
             }
         }
 
@@ -28,9 +27,8 @@ namespace Library.DataModels
             get { return _jammasuk; }
             set
             {
-                _jammasuk = value;
                 LamaKerja = JamPulang.Subtract(JamMasuk);
-                OnPropertyChange("JamMasuk");
+                SetProperty(ref _jammasuk, value);
             }
         }
 
@@ -40,9 +38,9 @@ namespace Library.DataModels
             get { return _jampulang; }
             set
             {
-                _jampulang = value;
+                
                 LamaKerja = JamPulang.Subtract(JamMasuk);
-                OnPropertyChange("JamPulang");
+                SetProperty(ref _jampulang, value);
             }
         }
 
@@ -52,8 +50,7 @@ namespace Library.DataModels
             get { return _status; }
             set
             {
-                _status = value;
-                OnPropertyChange("Status");
+                SetProperty(ref _status, value);
             }
         }
 
@@ -65,8 +62,7 @@ namespace Library.DataModels
             get { return _pegawaiid; }
             set
             {
-                _pegawaiid = value;
-                OnPropertyChange("PegawaiId");
+                SetProperty(ref _pegawaiid, value);
             }
         }
 
@@ -76,8 +72,7 @@ namespace Library.DataModels
             get { return _perizinanid; }
             set
             {
-                _perizinanid = value;
-                OnPropertyChange("PerizinanId");
+                SetProperty(ref _perizinanid , value);
             }
         }
 
@@ -87,8 +82,7 @@ namespace Library.DataModels
             get { return _pengaturanid; }
             set
             {
-                _pengaturanid = value;
-                OnPropertyChange("PengaturanId");
+                SetProperty(ref _pengaturanid, value);
             }
         }
 
@@ -97,7 +91,7 @@ namespace Library.DataModels
         public DateTime Tanggal
         {
             get { return dateTime; }
-            set { dateTime = value; OnPropertyChange("Tanggal"); }
+            set { SetProperty(ref dateTime, value); }
         }
 
 
@@ -106,7 +100,7 @@ namespace Library.DataModels
         public TimeSpan LamaKerja
         {
             get { return lamakerja; }
-            set { lamakerja = value; OnPropertyChange("LamaKerja"); }
+            set { SetProperty(ref lamakerja, value); }
         }
 
 

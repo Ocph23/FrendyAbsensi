@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Desktop.Pages.Liburview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Style="{StaticResource ContentRoot}">
+        <ScrollViewer>
+            <ScrollViewer>
+                <Grid MinWidth="200">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Data Hari Libur" Style="{StaticResource Heading2}"  />
+                        <WrapPanel Margin="0,20">
+                            <Label Margin="5" Content="Tahun"/>
+                            <ComboBox ItemsSource="{Binding YearsView}" SelectedItem="{Binding SelectedYear}" Margin="5" Width="79"/>
+                        </WrapPanel>
+                    </StackPanel>
+                  
+                    <DataGrid ItemsSource="{Binding SourceView}" Grid.Row="1" 
+                               SelectedItem="{Binding SelectedItem}"  RowHeight="35"
+                              CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
+                       
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tanggal" Binding="{Binding Tanggal, StringFormat='dd MMMM yyy'}"/>
+                            <DataGridTextColumn Header="Keterangan" Binding="{Binding Keterangan}"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Tambah Hari Libur" Command="{Binding AddCommand}"/>
+                                <MenuItem Header="Edit Jabatan" Command="{Binding EditCommand}"/>
+                                <MenuItem Header="Hapus Jabatan" Command="{Binding DeleteCommand}"/>
+                                <Separator></Separator>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+
+                    </DataGrid>
+
+                </Grid>
+            </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

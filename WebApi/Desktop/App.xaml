@@ -6,57 +6,13 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
-                <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Dark.xaml"/>
+               <ResourceDictionary Source="ModernUI.MyTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
-            <Style TargetType="{x:Type Button}"  >
-                <Setter Property="Foreground" Value="#FF1BA1E2"/>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Background" Value="{x:Null}"/>
-            </Style>
-            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="Foreground" Value="#FF1BA1E2"/>
-                <Setter Property="FontSize" Value="14"/>
-            </Style>
-            <Style TargetType="{x:Type TextBox}" >
-                <Setter Property="Foreground" Value="#FF1BA1E2"/>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="SelectionBrush" Value="#FF1BA1E2"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="Height" Value="35"/>
-                <Setter Property="Margin" Value="3"/>
-                <Setter Property="Background" Value="{x:Null}"/>
-                <Setter Property="Padding" Value="3,0,3,0"/>
-                <Style.Triggers>
 
-                    <Trigger Property="Validation.HasError" Value="true">
-
-                        <Setter Property="ToolTip"
-
-                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-
-                    Path=(Validation.Errors)[0].ErrorContent}"/>
-
-                    </Trigger>
-
-                </Style.Triggers>
-            </Style>
-            <Style TargetType="{x:Type Control}">
-
-                <Style.Triggers>
-
-                    <Trigger Property="Validation.HasError" Value="true">
-
-                        <Setter Property="ToolTip"
-
-                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
-
-                    Path=(Validation.Errors)[0].ErrorContent}"/>
-
-                    </Trigger>
-
-                </Style.Triggers>
-
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Width" Value="80"/>
+                <Setter Property="Height" Value="45"/>
+                <Setter Property="Margin" Value="2"/>
             </Style>
 
 

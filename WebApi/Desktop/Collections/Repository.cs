@@ -2,30 +2,46 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using Library.DataModels;
+using System.Windows.Data;
+using Ocph.DAL;
 
 namespace Desktop.Collections
 {
-    public class Repository<T> : ICollection<T>
+    public delegate void ChangeSource<T>(T obj);
+
+    public class Repository<T> :BaseNotify ,ICollection<T>
     {
         private string uri;
         private List<T> list = new List<T>();
-        public int Count => throw new NotImplementedException();
+        public CollectionView SourceView { get; set; }
+      //  private bool iSInstance;
+        public event ChangeSource<T> OnChangeSource;
+        public int Count => list.Count;
+        public bool IsReadOnly => IsReadOnly;
+        private T selected;
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public virtual T SelectedItem
+        {
+            get { return selected; }
+            set { SetProperty(ref selected, value); }
+        }
+
 
         public Repository(string uri)
         {
-            this.uri = uri;
-            Task.Factory.StartNew(async () => await GetListAsync());
+           SourceView = (CollectionView)CollectionViewSource.GetDefaultView(list);
+           this.uri = uri;
+             GetListAsync();
+
         }
 
-        private async Task GetListAsync()
+       
+
+        public async void GetListAsync()
         {
+            list.Clear();
             Client client = new Client();
             var response = await client.ClientContext.GetAsync(uri);
             if (response.IsSuccessStatusCode == true)
@@ -36,6 +52,7 @@ namespace Desktop.Collections
                     list.Add(item);
                 }
             }
+            SourceView.Refresh();
         }
 
         public void Add(T item)
@@ -52,12 +69,14 @@ namespace Desktop.Collections
                     if (response != null)
                     {
                         list.Add(result);
+                        OnChangeSource?.Invoke(result);
+                        SourceView.Refresh();
                     }
                     ResourcesBase.ShowMessage("Data Berhasil Ditambah");
                 }
                 else
                 {
-                    throw new SystemException("Data Tidak Tersimpan");
+                    throw new SystemException(response.ReasonPhrase);
                 }
             }
             catch (Exception ex)
@@ -66,7 +85,6 @@ namespace Desktop.Collections
             }
            
         }
-
        
 
         public void Clear()
@@ -89,6 +107,8 @@ namespace Desktop.Collections
             return list.GetEnumerator();
         }
 
+
+
         public bool  Remove(T item)
         {
             dynamic a = item;
@@ -102,6 +122,7 @@ namespace Desktop.Collections
                     if (response.IsSuccessStatusCode)
                     {
                         list.Remove(item);
+                        OnChangeSource(item);
                         return true;
                     }
                     else
@@ -130,6 +151,8 @@ namespace Desktop.Collections
             if (response.IsSuccessStatusCode)
             {
                 var result = JsonConvert.DeserializeObject<T>(response.Content.ReadAsStringAsync().Result);
+                if(OnChangeSource!=null)
+                     OnChangeSource(result);
                 return result;
             }
             else

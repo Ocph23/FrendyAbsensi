@@ -3,47 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
+using Ocph. DAL;
  
  namespace Library.DataModels 
 { 
      [TableName("pengaturan")] 
-     public class pengaturan:BaseNotifyProperty  
+     public class pengaturan:BaseNotify
    {
           [PrimaryKey("Id")] 
           [DbColumn("Id")] 
           public int Id 
           { 
                get{return _id;} 
-               set{ 
-                      _id=value; 
-                     OnPropertyChange("Id");
-                     }
+               set{
+                SetProperty(ref _id, value);
+            }
           } 
 
           [DbColumn("JamMasuk")] 
-          public DateTime JamMasuk 
+          public TimeSpan JamMasuk 
           { 
                get{return _jammasuk;} 
-               set{ 
-                      _jammasuk=value; 
-                     OnPropertyChange("JamMasuk");
-                     }
+               set{
+                SetProperty(ref _jammasuk , value);
+            }
           } 
 
           [DbColumn("JamPulang")] 
-          public DateTime JamPulang 
+          public TimeSpan JamPulang 
           { 
                get{return _jampulang;} 
-               set{ 
-                      _jampulang=value; 
-                     OnPropertyChange("JamPulang");
-                     }
-          } 
+               set{
+                SetProperty(ref _jampulang , value);
+            }
+          }
 
-          private int  _id;
-           private DateTime _jammasuk;
-           private DateTime _jampulang;
+        private double konpensasiTerlambat;
+        [DbColumn("KonpensasiTerlambat")]
+        public double KonpensasiTerlambat
+        {
+            get { return konpensasiTerlambat; }
+            set { SetProperty(ref konpensasiTerlambat, value); }
+        }
+
+
+        private int  _id;
+           private TimeSpan _jammasuk;
+           private TimeSpan _jampulang;
       }
 }
 
